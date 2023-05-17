@@ -9,7 +9,10 @@ Write menu driver program with menu options as mentioned below and implement eac
 
 Ans 
 
-#include<stdio.h> #include<stdlib.h> #include<string.h> struct file
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+struct file
 {
 char filename[20]; int filesize;
 int startblock; int endblock;
