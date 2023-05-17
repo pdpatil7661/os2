@@ -1,5 +1,6 @@
 
-Q.1	Write a program to simulate Linked file allocation method. Assume disk with n number of blocks. Give value of n as input. 
+Q.1	Write a program to simulate Linked file allocation method. 
+Assume disk with n number of blocks. Give value of n as input. 
 Randomly mark some block as allocated and accordingly maintain the list of free blocks
 Write menu driver program with menu options as mentioned below and implement each option.
 •	Show Bit Vector
@@ -128,11 +129,15 @@ case 3: exit(0);
 }
 
 
-Q2 .Write a simulation program for disk scheduling using FCFS algorithm. Accept total number of disk blocks, disk request string, and current head position from the user. Display the list of request in the order in which it is served. Also display the total number of head moments.
-1	 55, 58, 39, 18, 90, 160, 150, 38, 184 
+Q2 .Write a simulation program for disk scheduling using FCFS algorithm.
+Accept total number of disk blocks, disk request string, and current head position from the user.
+Display the list of request in the order in which it is served. Also display the total number of head moments.
+	 55, 58, 39, 18, 90, 160, 150, 38, 184 
 	Start Head Position: 50   
 
-#include<stdio.h> #include<stdlib.h> int main()
+#include<stdio.h> 
+#include<stdlib.h>
+int main()
 { 
     int RQ[100],i,n,TotalHeadMoment=0,initial;  
     printf("Enter the number of Requests\n");     
