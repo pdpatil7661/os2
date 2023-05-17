@@ -21,9 +21,11 @@ void AcceptData(int X[][10])
 {
 int i,j; for(i=0;i<nop;i++)
 {
-printf("P%d:\n",i); for(j=0;j<nor;j++)
+printf("P%d:\n",i);
+for(j=0;j<nor;j++)
 {
-printf("%c:",65+j); scanf("%d",&X[i][j]);
+printf("%c:",65+j); 
+scanf("%d",&X[i][j]);
 }
 }
 }
@@ -32,15 +34,19 @@ void AcceptAvailability()
 int i; for(i=0;i<nor;i++)
 {
 printf("%c",65+i);
-scanf("%d",&Av[i]); work[i]=Av[i];
+scanf("%d",&Av[i]); 
+work[i]=Av[i];
 }
 }
 void DisplayData()
 {
-int i,j; printf("\n\tAllocation\t\tMax\t\tNeed\n"); printf("\t");
+int i,j;
+printf("\n\tAllocation\t\tMax\t\tNeed\n"); 
+printf("\t");
 for(i=0;i<3;i++)
 {
-for(j=0;j<nor;j++) printf("%4c",65+j);
+for(j=0;j<nor;j++)
+printf("%4c",65+j);
 printf("\t");
 }
 for(i=0;i<nop;i++)
@@ -108,7 +114,8 @@ return(1);
 }
 void Banker()
 {
-int i=0,j=0,k=0,flag=0; while(flag<2)
+int i=0,j=0,k=0,flag=0;
+while(flag<2)
 {
 if(!Finish[i])
 {
@@ -136,12 +143,16 @@ for(j=0;j<nor;j++)
 work[j]+=A[i][j];
 }
  
-for(j=0;j<nor;j++) printf("%4d",work[j]);
-printf("\nAfter P%d terminates it will release all its resources\n",i); Safe[k++]=i;
+for(j=0;j<nor;j++)
+printf("%4d",work[j]);
+printf("\nAfter P%d terminates it will release all its resources\n",i); 
+Safe[k++]=i;
 Finish[i]=1;
 }
 }
-if((i+1)%nop==0) flag++; i=(i+1)%nop;
+if((i+1)%nop==0) 
+flag++;
+i=(i+1)%nop;
 }
 if(k==nop)
 {
@@ -187,8 +198,15 @@ return(0);
 }
 
 
-Q2 Write a simulation program for disk scheduling using SCAN algorithm. Accept total number of disk blocks, disk request string, and current head position from the user. Display the list of request in the order in which it is served. Also display the total number of head moments. 
-	86, 147, 91, 170, 95, 130, 102, 70    Starting Head position= 125 	Direction:  left  
+Q2 Write a simulation program for disk scheduling using SCAN algorithm.
+Accept total number of disk blocks, disk request string, and current head position from the user.
+Display the list of request in the order in which it is served.
+Also display the total number of head moments. 
+86, 147, 91, 170, 95, 130, 102, 70    
+Starting Head position= 125 	
+Direction:  left  
+
+
 #include <stdio.h> 
 #include <math.h> 
 
