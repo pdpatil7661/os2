@@ -135,7 +135,9 @@ case 3: exit(0);
 }
 
 
-Q.2	Write a simulation program for disk scheduling using C-SCAN algorithm. Accept total number of disk blocks, disk request string, and current head position from the user. Display the list of request in the order in which it is served. Also display the total number of head moments..
+Q.2	Write a simulation program for disk scheduling using C-SCAN algorithm. 
+Accept total number of disk blocks, disk request string, and current head position from the user.
+Display the list of request in the order in which it is served. Also display the total number of head moments..
 80, 150, 60,135, 40, 35, 170
 Starting Head Position: 70
 Direction: Right
@@ -200,7 +202,8 @@ initial=RQ[i];
 {
 for(i=index-1;i>=0;i--)
 {
-TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial); initial=RQ[i];
+TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial);
+initial=RQ[i];
 }
 // last movement for min size TotalHeadMoment=TotalHeadMoment+abs(RQ[i+1]-0);
 /*movement min to max disk */
