@@ -1,0 +1,116 @@
+Q.1 Write a C program to simulate Banker’s algorithm for the purpose of deadlock avoidance. Consider
+the following snapshot of system, A, B, C and D is the resource type.
+Process	Allocation	Max	Available
+	A	B	C	D	A	B	C	D	A	B	C	D
+P0	0	3	2	4	6	5	4	4	3	4	4	2
+P1	1	2	0	1	4	4	4	4				
+P2	0	0	0	0	0	0	1	2				
+P3	3	3	2	2	3	9	3	4				
+P4	1	4	3	2	2	5	3	3				
+P5	2	4	1	4	4	6	3	4				
+•	Calculate and display the content of need matrix?
+Is the system in safe state? If display the safe sequence.
+#include<stdio.h>  
+int A[10][10],M[10][10],N[10][10],Av[10],nor,nop;  
+void AcceptData(int X[][10])  
+{  
+int i,j;  
+for(i=0;i<nop;i++)  
+{  
+printf("P%d\n",i);  
+for(j=0;j<nor;j++)  
+{  
+printf("%c: ",65+j);  scanf("%d",&X[i][j]);  
+}  }  
+}  
+void AcceptAvailability()  
+{  int i;  
+for(i=0;i<nor;i++)  
+{  
+printf("%c: ",65+i);  
+scanf("%d",&Av[i]);  
+}  
+} 
+void DisplayData()  
+{  
+int i,j;  
+printf("\n\tAllocation\t\tMax\t\tNeed\n");  
+printf("\t");  for(i=0;i<3;i++)  
+{  
+for(j=0;j<nor;j++)  printf("%4c",65+j);  
+printf("\t");  
+}  
+for(i=0;i<nop;i++)  
+{  
+printf("\nP%d\t",i);  for(j=0;j<nor;j++)  printf("%4d",A[i][j]);  printf("\t");  for(j=0;j<nor;j++)  printf("%4d",M[i][j]);  printf("\t");  for(j=0;j<nor;j++)  
+printf("%4d",N[i][j]);  
+}  
+printf("\nAvailable\n");  for(j=0;j<nor;j++)  
+printf("%4d",Av[j]);  
+}  
+void CalcNeed()  
+{  
+int i,j;  
+for(i=0;i<nop;i++)  for(j=0;j<nor;j++)  
+N[i][j] = M[i][j] - A[i][j];  
+}  
+void main()  
+{  
+printf("\nEnter No.of Processes & No.of Resources: ");  
+scanf("%d %d",&nop,&nor);  printf("Enter Allocation\n");  AcceptData(A);  printf("Enter Max Requirement\n"); 
+AcceptData(M);  
+printf("Enter Availability\n");  
+AcceptAvailability();  
+CalcNeed();  
+DisplayData();  
+}
+
+
+Q.2 Write a program to simulate Sequential file allocation method. Assume disk with n number of blocks. Give value of n as input. Randomly mark some block as allocated and accordingly maintain the list of free blocks Write menu driver program with menu options as mentioned below and implement each option 
+ 
+ೠ Show Bit Vector 
+ 
+Delete already created file 
+ 
+• Exit 
+ 
+Ans:- 
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <stdbool.h> 
+ 
+int *bitVector; int totalBlocks; 
+ 
+void initializeBitVector() {     bitVector = (int*) malloc(totalBlocks * sizeof(int));     for(int i = 0; i < totalBlocks; i++) {         bitVector[i] = rand() % 2; 
+    } 
+} 
+ 
+void showBitVector() {     printf("Bit Vector:\n");     for(int i = 0; i < totalBlocks; i++) {         printf("%d ", bitVector[i]); 
+    } 
+    printf("\n"); 
+} 
+ 
+void deleteFile() {     int startBlock, fileSize;     printf("Enter starting block of file to be deleted: ");     scanf("%d", &startBlock);     printf("Enter file size: ");     scanf("%d", &fileSize); 
+ 
+    if(startBlock < 0 || startBlock >= totalBlocks || startBlock + fileSize > totalBlocks) {         printf("Invalid input\n");         return; 
+    } 
+ 
+    for(int i = startBlock; i < startBlock + fileSize; i++) {         if(bitVector[i] == 0) { 
+            printf("Error: Block %d is not allocated\n", i);             return; 
+        } 
+    } 
+ 
+    for(int i = startBlock; i < startBlock + fileSize; i++) {         bitVector[i] = 0; 
+    } 
+ 
+    printf("File deleted successfully\n"); 
+} 
+ 
+int main() {     printf("Enter total number of blocks in disk: ");     scanf("%d", &totalBlocks);     initializeBitVector(); 
+ 
+    while(true) {         printf("\nMenu:\n1. Show Bit Vector\n2. Delete File\n3. Exit\n");         int choice;         scanf("%d", &choice);         switch(choice) {             case 1:                 showBitVector();                 break;             case 2:                 deleteFile();                 break;             case 3: 
+                printf("Exiting...\n");                 return 0;             default: 
+                printf("Invalid choice\n"); 
+        } 
+    } 
+}
