@@ -1,12 +1,12 @@
 Q.1	Write a C program to simulate Banker’s algorithm for the purpose of deadlock avoidance. 
  the following snapshot of system, A, B, C and D are the resource type.
-                           Process	Allocation	     Max	    Available
-                                    	A	B	C	        A	B	C	     A	B	C
+                           Process	  Allocation	     Max	    Available
+                                     	A	B	C	        A	B	C	     A	B	C
                              P0	      0	1	0	        0	0	0	     0	0	0
                              P1	      2	0	0	        2	0	2			
                              P2	      3	0	3	        0	0	0			
                              P3	      2	1	1	        1	0	0			
-                             P4	      0	0	2        	0	0	2			
+                             P4	      0	0	2         0	0	2			
 Implement the following Menu.
 a)	Accept Available
 b)	Display Allocation, Max
