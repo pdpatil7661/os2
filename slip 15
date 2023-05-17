@@ -149,7 +149,9 @@ Display the list of request in the order in which it is served. Also display the
 80, 150, 60,135, 40, 35, 170
 Starting Head Position: 70 Direction: Right
 Ans 
-#include<stdio.h> #include<stdlib.h> int main()
+#include<stdio.h>
+#include<stdlib.h>
+int main()
 {
 int RQ[100],i,j,n,TotalHeadMoment=0,initial,size,move; 
 printf("Enter the number of Requests\n"); 
