@@ -1,0 +1,15 @@
+Q.1	Implement the Menu driven Banker's algorithm for accepting Allocation, Max from user.
+a)	Accept Available
+b)	Display Allocation, Max
+c)	Find Need and display It,
+d)	Display Available
+Consider the system with 3 resources types A,B, and C with 7,2,6 instances respectively. Consider the following snapshot:
+  
+  
+  Process	          Allocation	     Request
+	                   A  B	 C	        A	B	C
+   P0	               0	1  0	        0	0	0
+   P1	               4	0	 0	        5 2	2
+   P2	               5	0	 4         	1	0	4
+  P3	               4	3	 3         	4	4	4
+  P4	               2	2	 4	        6	5	5
