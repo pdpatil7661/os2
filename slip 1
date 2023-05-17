@@ -14,7 +14,8 @@ P4	   2  2 4	6 5 5
 ANS:
 #include<stdio.h>
 int A[10][10], M[10][10], N[10][10];
-int AV[10], Safe[10], Finish[10], R[10][10], nor, nop; void AcceptData(intX[][10])
+int AV[10], Safe[10], Finish[10], R[10][10], nor, nop; 
+void AcceptData(intX[][10])
 {
 int i, j;
 for (i = 0; i < nop; i++)
@@ -22,7 +23,8 @@ for (i = 0; i < nop; i++)
 printf("P%d\n", i);
 for (j = 0; j < nor; j++)
 {
-printf("%c:", 65 + j); scanf("%d", &X[i][j]);
+printf("%c:", 65 + j); 
+scanf("%d", &X[i][j]);
 }
 }
 }
@@ -47,7 +49,9 @@ scanf("%d", &R[i]);
 void DisplayData()
 {
  
-int i, j; printf("\n\tAllocation\t\tMax\t\tNeed\n"); printf("\t"); for (i = 0; i < 3; i++)
+int i, j; printf("\n\tAllocation\t\tMax\t\tNeed\n"); 
+printf("\t");
+for (i = 0; i < 3; i++)
 {
 for (j = 0; j < nor; j++)
 {
@@ -58,7 +62,8 @@ printf("\t");
 for (i = 0; i < nop; i++)
  
 {
-printf("\nP%d\t", i); for (j = 0; j < nor; j++)
+printf("\nP%d\t", i); 
+for (j = 0; j < nor; j++)
 {
 printf("%4d", A[i][j]);
 }
@@ -68,9 +73,11 @@ for (j = 0; j < nor; j++)
 printf("%4d", M[i][j]);
 }
 printf("\t");
-for (j = 0; j < nor; j++) printf("%4d", N[i][j]);
+for (j = 0; j < nor; j++) 
+printf("%4d", N[i][j]);
 }
-printf("\nAvailable\n"); for (j = 0; j < nor; j++)
+printf("\nAvailable\n"); 
+for (j = 0; j < nor; j++)
 {
 printf("%4d", AV[j]);
 }
@@ -101,11 +108,17 @@ return 1;
 }
 int main()
 {
-printf("\nEnter Number of Process :"); scanf("%d", &nop); 
-printf("\nEnter Number of Resources :"); scanf("%d", &nor); 
-printf("Enter Allocation\n"); AcceptData(A);
-printf("Enter MAX Requirement\n"); AcceptData(M); 
-printf("Enter Availability\n"); AcceptAvailable(); CalcNeed(); 
+printf("\nEnter Number of Process :"); 
+scanf("%d", &nop); 
+printf("\nEnter Number of Resources :");
+scanf("%d", &nor); 
+printf("Enter Allocation\n");
+AcceptData(A);
+printf("Enter MAX Requirement\n"); 
+AcceptData(M); 
+printf("Enter Availability\n"); 
+AcceptAvailable();
+CalcNeed(); 
 DisplayData();
 }
 
@@ -114,12 +127,18 @@ total number of disk blocks, disk request string, and current head position from
 55, 58, 39, 18, 90, 160, 150, 38, 184
 Start Head Position: 50
 Ans 
-#include<stdio.h> #include<stdlib.h> int main()
+#include<stdio.h> 
+#include<stdlib.h> 
+int main()
 {
-int RQ[100],i,n,TotalHeadMoment=0,initial; printf("Enter the number of Requests\n"); scanf("%d",&n);
-printf("Enter the Requests sequence\n"); for(i=0;i<n;i++)
+int RQ[100],i,n,TotalHeadMoment=0,initial; 
+printf("Enter the number of Requests\n");
+scanf("%d",&n);
+printf("Enter the Requests sequence\n"); 
+for(i=0;i<n;i++)
 scanf("%d",&RQ[i]);
-printf("Enter initial head position\n"); scanf("%d",&initial);
+printf("Enter initial head position\n");
+scanf("%d",&initial);
 // logic for FCFS disk scheduling for(i=0;i<n;i++)
 {
 TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial); initial=RQ[i];
