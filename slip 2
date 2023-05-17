@@ -127,7 +127,9 @@ case 3: exit(0);
 
 Q.2	Write an MPI program to calculate sum of randomly generated 1000 numbers (stored in array) on a cluster.
 Ans 
-#include <stdio.h> #include <stdlib.h> #include <mpi.h>
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <mpi.h>
 #define ARRAY_SIZE 1000
 int main(int argc, char *argv[]) 
 { int rank, size;
