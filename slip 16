@@ -25,7 +25,9 @@ bit_vector[i] = 0; // Mark block as free
 }
 }
 
-void show_bit_vector(int n) { printf("Block Number\tStatus\n"); 
+void show_bit_vector(int n) 
+{
+printf("Block Number\tStatus\n"); 
 for (int i = 0; i < n; i++)
 {
 printf("%d\t\t", i);
