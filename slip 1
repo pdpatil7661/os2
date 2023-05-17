@@ -3,14 +3,13 @@ a)	Accept Available
 b)	Display Allocation, Max
 c)	Display the contents of need matrix
 d)	Display Available
-
 Process	 Allocation	 Max	  Available
-	      A	B	C      	A	B	C	   A	B	C
-P0	   2  3	2	      9	7	5	   3	3	2
-P1	   4	0	0	      5	2	2			
-P2	   5	0	4	      1	0	4			
-P3	   4 3	3	      4	4	4			
-P4	    2	2	4	      6	5	5			
+	   A B C      	A B C	   A	B	C
+P0	   2  3	2	9 7 5	   3	3	2
+P1	   4  0	0	5 2 2			
+P2	   5  0 4	1 0 4			
+P3	   4  3	3	4 4 4			
+P4	   2  2 4	6 5 5			
 
 ANS:
 #include<stdio.h>
