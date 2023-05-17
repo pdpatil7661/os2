@@ -1,0 +1,3 @@
+Q.1	Write a C program to simulate Banker’s algorithm for the purpose of deadlock avoidance. 
+Consider the following snapshot of system, A, B, C and D is the resource type.
+
