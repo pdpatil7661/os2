@@ -1,62 +1,98 @@
-Q.1	Write a simulation program for disk scheduling using LOOK algorithm. Accept total number of disk blocks, disk request string, and current head position from the user. Display the list of request in the order in which it is served. Also display the total number of head moments.
+Q.1	Write a simulation program for disk scheduling using LOOK algorithm. 
+Accept total number of disk blocks, disk request string, and current head position from the user. 
+Display the list of request in the order in which it is served. Also display the total number of head moments.
 
-86, 147, 91, 170, 95, 130, 102, 70 Starting Head position= 125 Direction: User Defined
+86, 147, 91, 170, 95, 130, 102, 70 
+Starting Head position= 125 
+Direction: User Defined
 Ans:-
 
-#include <stdio.h> #include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-int main() {
-int n, head, i, j, temp, total_head_movements = 0; printf("Enter the total number of disk blocks: "); scanf("%d", &n);
+int main()
+{
+int n, head, i, j, temp, total_head_movements = 0;
+printf("Enter the total number of disk blocks: ");
+scanf("%d", &n);
 int disk_queue[n];
-printf("Enter the disk request string: "); for(i = 0; i < n; i++) {
+printf("Enter the disk request string: "); 
+for(i = 0; i < n; i++) {
 scanf("%d", &disk_queue[i]);
 }
-printf("Enter the current head position: "); scanf("%d", &head);
+printf("Enter the current head position: "); 
+scanf("%d", &head);
 int direction;
-printf("Enter the direction (0 for left, 1 for right): "); scanf("%d", &direction);
-for(i = 0; i < n-1; i++) { for(j = i+1; j < n; j++) {
+printf("Enter the direction (0 for left, 1 for right): "); 
+scanf("%d", &direction);
+for(i = 0; i < n-1; i++)
+{ for(j = i+1; j < n; j++)
+{
 if(disk_queue[i] > disk_queue[j]) { temp = disk_queue[i]; disk_queue[i] = disk_queue[j]; disk_queue[j] = temp;
  
 }
 }
 }
 int index;
-for(i = 0; i < n; i++) { if(disk_queue[i] >= head) {
+for(i = 0; i < n; i++)
+{ if(disk_queue[i] >= head)
+{
 index = i; break;
 }
 }
 if(direction == 0) {
-for(i = index-1; i >= 0; i--) { printf("%d ", disk_queue[i]);
-total_head_movements += abs(disk_queue[i] - head); head = disk_queue[i];
+for(i = index-1; i >= 0; i--) 
+{ 
+printf("%d ", disk_queue[i]);
+total_head_movements += abs(disk_queue[i] - head);
+head = disk_queue[i];
 }
-for(i = index; i < n; i++) { printf("%d ", disk_queue[i]);
+for(i = index; i < n; i++)
+{ 
+printf("%d ", disk_queue[i]);
 total_head_movements += abs(disk_queue[i] - head); head = disk_queue[i];
 }
 }
 else {
-for(i = index; i < n; i++) { printf("%d ", disk_queue[i]);
+for(i = index; i < n; i++)
+{ 
+printf("%d ", disk_queue[i]);
 total_head_movements += abs(disk_queue[i] - head); head = disk_queue[i];
 }
-for(i = index-1; i >= 0; i--) { printf("%d ", disk_queue[i]);
-total_head_movements += abs(disk_queue[i] - head); head = disk_queue[i];
+for(i = index-1; i >= 0; i--)
+{ 
+printf("%d ", disk_queue[i]);
+total_head_movements += abs(disk_queue[i] - head);
+head = disk_queue[i];
 }
 }
-printf("\nTotal number of head movements: %d", total_head_movements); return 0;
+printf("\nTotal number of head movements: %d", total_head_movements); 
+return 0;
 }
 
 
-Q.2	Write a program to simulate Linked file allocation method. Assume disk with n number of blocks. Give value of n as input. Randomly mark some block as allocated and accordingly maintain the list of free blocks Write menu driver program with menu options as mentioned below and implement each option.
+Q.2	Write a program to simulate Linked file allocation method.
+Assume disk with n number of blocks. Give value of n as input. 
+Randomly mark some block as allocated and accordingly maintain the list of free blocks 
+Write menu driver program with menu options as mentioned below and implement each option.
  
 1.Show Bit Vector 2.Create New File 3.Show Directory 4.Exit
 Ans:-
-#include <stdio.h> #include <stdlib.h> #include <time.h>
+
+
+#include <stdio.h>
+#include <stdlib.h> 
+#include <time.h>
 #define MAX_BLOCKS 100 typedef struct block {
 int index;
 struct block *next;
 } Block;
 
-void initialize_disk(int num_blocks, Block **free_blocks) { int i, num_allocated = rand() % (num_blocks / 2);
-int *allocated = malloc(sizeof(int) * num_allocated); for (i = 0; i < num_allocated; i++) {
+void initialize_disk(int num_blocks, Block **free_blocks)
+{ int i, num_allocated = rand() % (num_blocks / 2);
+int *allocated = malloc(sizeof(int) * num_allocated);
+for (i = 0; i < num_allocated; i++)
+{
 allocated[i] = rand() % num_blocks;
 }
 for (i = 0; i < num_blocks; i++) {
@@ -73,9 +109,11 @@ if (i < num_allocated && allocated[i]) { free(new_block);
 free(allocated);
 }
 
-void show_bit_vector(int num_blocks, Block *free_blocks) { int i;
+void show_bit_vector(int num_blocks, Block *free_blocks) 
+{ int i;
 printf("Bit Vector:\n");
-for (i = 0; i < num_blocks; i++) {
+for (i = 0; i < num_blocks; i++) 
+{
 if (free_blocks == NULL || free_blocks->index != i) { printf("1 ");
  
 } else {
@@ -86,18 +124,27 @@ free_blocks = free_blocks->next;
 printf("\n");
 }
 
-void create_new_file(int *num_files, char **file_names, int *file_sizes, Block **allocated_blocks, Block **free_blocks) {
+void create_new_file(int *num_files, char **file_names, int *file_sizes, Block **allocated_blocks, Block **free_blocks)
+{
 char file_name[50];
-int file_size, num_blocks, i; printf("Enter file name: "); scanf("%s", file_name); printf("Enter file size (in blocks): "); scanf("%d", &num_blocks);
+int file_size, num_blocks, i;
+printf("Enter file name: "); 
+scanf("%s", file_name); 
+printf("Enter file size (in blocks): "); 
+scanf("%d", &num_blocks);
 file_sizes[*num_files] = num_blocks;
 file_names[*num_files] = malloc(sizeof(char) * (strlen(file_name) + 1)); strcpy(file_names[*num_files], file_name);
 Block *prev_block = NULL;
-for (i = 0; i < num_blocks; i++) { if (*free_blocks == NULL) {
-printf("Error: Not enough free blocks to allocate space for file.\n"); return;
+for (i = 0; i < num_blocks; i++) { if (*free_blocks == NULL)
+{
+printf("Error: Not enough free blocks to allocate space for file.\n"); 
+return;
 }
 Block *new_block = *free_blocks; if (prev_block == NULL) {
 *allocated_blocks = new_block;
-} else {
+}
+else
+{
 prev_block->next = new_block;
 }
 *free_blocks = new_block->next; new_block->next = NULL; prev_block = new_block;
@@ -106,7 +153,8 @@ prev_block->next = new_block;
 printf("File created successfully.\n");
 }
 
-void show_directory(int num_files, char **file_names, int *file_sizes) { int i;
+void show_directory(int num_files, char **file_names, int *file_sizes) 
+{ int i;
 printf("Directory:\n");
 for (i = 0; i < num_files; i++) {
 printf("%s (%d blocks)\n", file_names[i], file_sizes[i]);
@@ -114,8 +162,8 @@ printf("%s (%d blocks)\n", file_names[i], file_sizes[i]);
 }
 }
 
-void deallocate_blocks(Block **allocated_blocks, Block **free_blocks) { Block *curr_block = *allocated_blocks;
+void deallocate_blocks(Block **allocated_blocks, Block **free_blocks) 
+{ Block *curr_block = *allocated_blocks;
 while (curr_block != NULL) {
 Block *next_block = curr_block->next; curr_block->next = *
-
-******Incomplete answer*******
+}
