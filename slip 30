@@ -1,47 +1,86 @@
-Q.1. Write a program to simulate Linked file allocation method. Assume disk with n number of blocks. Give value of n as input. Randomly mark some block as allocated andaccordingly maintain the list of free blocks Write menu driver program with menu options as mentioned below and implement each option.
+Q.1. Write a program to simulate Linked file allocation method.
+Assume disk with n number of blocks. Give value of n as input.
+Randomly mark some block as allocated andaccordingly maintain the list of free blocks 
+Write menu driver program with menu options as mentioned below and implement each option.
 *Show Bit Vector * Create New File *Show Directory *Exit 
+
+
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <stdbool.h> 
  
 int *bitVector; int totalBlocks; 
  
-void initializeBitVector() {     bitVector = (int*) malloc(totalBlocks * sizeof(int));     for(int i = 0; i < totalBlocks; i++) {         bitVector[i] = rand() % 2; 
+void initializeBitVector()
+{     bitVector = (int*) malloc(totalBlocks * sizeof(int));  
+for(int i = 0; i < totalBlocks; i++) 
+{         bitVector[i] = rand() % 2; 
     } 
 } 
  
-void showBitVector() {     printf("Bit Vector:\n");     for(int i = 0; i < totalBlocks; i++) {         printf("%d ", bitVector[i]); 
+void showBitVector()
+{     printf("Bit Vector:\n");   
+for(int i = 0; i < totalBlocks; i++)
+{         printf("%d ", bitVector[i]); 
     } 
     printf("\n"); 
 } 
  
-void deleteFile() {     int startBlock, fileSize;     printf("Enter starting block of file to be deleted: ");     scanf("%d", &startBlock);     printf("Enter file size: ");     scanf("%d", &fileSize); 
+void deleteFile() 
+{     int startBlock, fileSize;   
+printf("Enter starting block of file to be deleted: ");   
+scanf("%d", &startBlock);     
+printf("Enter file size: ");   
+scanf("%d", &fileSize); 
  
-    if(startBlock < 0 || startBlock >= totalBlocks || startBlock + fileSize > totalBlocks) {         printf("Invalid input\n");         return; 
+    if(startBlock < 0 || startBlock >= totalBlocks || startBlock + fileSize > totalBlocks)
+    {         printf("Invalid input\n");     
+    return; 
     } 
  
-    for(int i = startBlock; i < startBlock + fileSize; i++) {         if(bitVector[i] == 0) { 
-            printf("Error: Block %d is not allocated\n", i);             return; 
+    for(int i = startBlock; i < startBlock + fileSize; i++) 
+    {         if(bitVector[i] == 0) { 
+            printf("Error: Block %d is not allocated\n", i);   
+            return; 
         } 
     } 
  
-    for(int i = startBlock; i < startBlock + fileSize; i++) {         bitVector[i] = 0; 
+    for(int i = startBlock; i < startBlock + fileSize; i++)
+    {         bitVector[i] = 0; 
     } 
  
     printf("File deleted successfully\n"); 
 } 
  
-int main() {     printf("Enter total number of blocks in disk: ");     scanf("%d", &totalBlocks);     initializeBitVector(); 
+int main()
+{     printf("Enter total number of blocks in disk: ");
+scanf("%d", &totalBlocks);  
+initializeBitVector(); 
  
-    while(true) {         printf("\nMenu:\n1. Show Bit Vector\n2. Delete File\n3. Exit\n");         int choice;         scanf("%d", &choice);         switch(choice) {             case 1:                 showBitVector();                 break;             case 2:                 deleteFile();                 break;             case 3: 
-                printf("Exiting...\n");                 return 0;             default: 
+    while(true)
+    {         printf("\nMenu:\n1. Show Bit Vector\n2. Delete File\n3. Exit\n");     
+    int choice;       
+    scanf("%d", &choice);       
+    switch(choice) {             
+    case 1:                 
+    showBitVector();            
+    break;             
+    case 2:                
+    deleteFile();               
+    break;            
+    case 3: 
+               printf("Exiting...\n");          
+               return 0;           
+               default: 
                 printf("Invalid choice\n"); 
         } 
     } 
 }
  
  
-Q.2 Write a simulation program for disk scheduling using FCFS algorithm. Accept total number of disk blocks, disk request string, and current head position from the user. Display the list of request in the order in which it is served. Also display the total number of head moments. 
+Q.2 Write a simulation program for disk scheduling using FCFS algorithm. 
+Accept total number of disk blocks, disk request string, and current head position from the user. 
+Display the list of request in the order in which it is served. Also display the total number of head moments. 
 65, 95, 30, 91, 18, 116, 142, 44, 168  
 Start Head Position: 52 
  
@@ -53,20 +92,29 @@ Ans:-
  
 int main() 
 { 
-    int requests[MAX_REQUESTS];     int num_requests;     int current_head_position;     int total_head_movements = 0; 
+    int requests[MAX_REQUESTS];  
+    int num_requests;     
+    int current_head_position;  
+    int total_head_movements = 0; 
      
-    printf("Enter the total number of disk blocks: ");     scanf("%d", &num_requests); 
+    printf("Enter the total number of disk blocks: ");   
+    scanf("%d", &num_requests); 
      
-    printf("Enter the disk request string: ");     for(int i = 0; i < num_requests; i++) 
+    printf("Enter the disk request string: ");   
+    for(int i = 0; i < num_requests; i++) 
     { 
         scanf("%d", &requests[i]); 
     } 
      
-    printf("Enter the current head position: ");     scanf("%d", &current_head_position); 
+    printf("Enter the current head position: ");   
+    scanf("%d", &current_head_position); 
      
-    printf("Order of request served:\n");     for(int i = 0; i < num_requests; i++) 
+    printf("Order of request served:\n");   
+    for(int i = 0; i < num_requests; i++) 
     { 
-        printf("%d ", requests[i]);         total_head_movements += abs(current_head_position - requests[i]);         current_head_position = requests[i]; 
+        printf("%d ", requests[i]);       
+        total_head_movements += abs(current_head_position - requests[i]);      
+        current_head_position = requests[i]; 
     } 
      
     printf("\nTotal number of head movements: %d\n", total_head_movements); 
