@@ -174,7 +174,9 @@ return(0);
 }
 
 
-Q.2 Write a simulation program for disk scheduling using LOOK algorithm. Accept total number of disk blocks, disk request string, and current head position from the user. Display the list of request in the order in which it is served. Also display the total number of head moments. [15] 
+Q.2 Write a simulation program for disk scheduling using LOOK algorithm. 
+Accept total number of disk blocks, disk request string, and current head position from the user. 
+Display the list of request in the order in which it is served. Also display the total number of head moments. [15] 
 176, 79, 34, 60, 92, 11, 41, 114 
 Starting Head Position: 65 
 Direction: Left 
@@ -183,33 +185,54 @@ Direction: Left
 int ReqString[20],nor,nob,start,thm,min[10],max[10]; char direction;
 int getmin()
 {
-int i,j=0,min=999; for(i=0;i<nor;i++) if(ReqString[i]<=min) min=ReqString[i]; return min;
+int i,j=0,min=999; 
+for(i=0;i<nor;i++)
+if(ReqString[i]<=min) 
+min=ReqString[i]; 
+return min;
 }
 int getmax()
 {
-int i,j=0,max=0; for(i=0;i<nor;i++) if(ReqString[i]>max) max=ReqString[i]; return max;
+int i,j=0,max=0;
+for(i=0;i<nor;i++)
+if(ReqString[i]>max)
+max=ReqString[i];
+return max;
 }
 main()
 {
 int i,j,k,max,min;
-printf("\nEnter No.of Requests: "); scanf("%d",&nor);
-printf("\nEnter Requests:\n"); for(i=0;i<nor;i++)
+printf("\nEnter No.of Requests: "); 
+scanf("%d",&nor);
+printf("\nEnter Requests:\n");
+for(i=0;i<nor;i++)
 {
 printf("[%d]=",i);
 scanf("%d",&ReqString[i]);
 }
-printf("\nEnter No.of Cylinders: "); scanf("%d",&nob);
-printf("\nEnter Start Block: "); scanf("%d",&start); printf("\nEnter Direction: "); scanf(" %c",&direction); min=getmin(); max=getmax(); if(direction=='L')
+printf("\nEnter No.of Cylinders: "); 
+scanf("%d",&nob);
+printf("\nEnter Start Block: "); 
+scanf("%d",&start);
+printf("\nEnter Direction: ");
+scanf(" %c",&direction); 
+min=getmin(); 
+max=getmax(); 
+if(direction=='L')
 {
-printf("\n%d-%d",start,min); thm+=start-min;
+printf("\n%d-%d",start,min);
+thm+=start-min;
 start=min;
-printf("\n%d-%d",max,start); thm+=max-start;
+printf("\n%d-%d",max,start); 
+thm+=max-start;
 }
 else if(direction=='R')
 {
-printf("\n%d-%d",start,max); thm+=max-start;
+printf("\n%d-%d",start,max);
+thm+=max-start;
 start=max;
-printf("\n%d-%d",start,min); thm+=start-min;
+printf("\n%d-%d",start,min);
+thm+=start-min;
 }
 printf("\nTotal Head Movement: %d",thm);
 }
