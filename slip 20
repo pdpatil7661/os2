@@ -1,4 +1,6 @@
-Q.1 Write a simulation program for disk scheduling using SCAN algorithm. Accept total number of disk blocks, disk request string, and current head position from the user. Display the list of request in the order in which it is served. Also display the total number of head moments. 
+Q.1 Write a simulation program for disk scheduling using SCAN algorithm. 
+Accept total number of disk blocks, disk request string, and current head position from the user.
+Display the list of request in the order in which it is served. Also display the total number of head moments. 
 33, 99, 142, 52, 197, 79, 46, 65 Start Head Position: 72 
 Direction: User defined 
  
@@ -10,32 +12,47 @@ Ans:-
  
 int main() 
 { 
-    int n, head, i, j, temp, total_movement = 0;     int queue[MAX], sequence[MAX];     printf("Enter the total number of disk blocks: ");     scanf("%d", &n); 
+    int n, head, i, j, temp, total_movement = 0;    
+    int queue[MAX], sequence[MAX];    
+    printf("Enter the total number of disk blocks: ");   
+    scanf("%d", &n); 
  
-    printf("Enter the disk request string:\n");     for (i = 0; i < n; i++)         scanf("%d", &queue[i]); 
+    printf("Enter the disk request string:\n"); 
+    for (i = 0; i < n; i++)     
+    scanf("%d", &queue[i]); 
  
-    printf("Enter the current head position: ");     scanf("%d", &head); 
+    printf("Enter the current head position: ");   
+    scanf("%d", &head); 
  
-    printf("Enter the direction (1 for right, 0 for left): ");     int direction;     scanf("%d", &direction); 
+    printf("Enter the direction (1 for right, 0 for left): ");   
+    int direction;   
+    scanf("%d", &direction); 
  
-    // sort the request queue     for (i = 0; i < n - 1; i++) 
+    // sort the request queue
+    for (i = 0; i < n - 1; i++) 
     {         for (j = i + 1; j < n; j++) 
         { 
             if (queue[i] > queue[j]) 
             { 
-                temp = queue[i];                 queue[i] = queue[j];                 queue[j] = temp; 
+                temp = queue[i];          
+                queue[i] = queue[j];            
+                queue[j] = temp; 
             } 
         } 
     } 
  
-    // find the head position in the request queue     int start = 0;     for (i = 0; i < n; i++) 
+    // find the head position in the request queue    
+    int start = 0;    
+    for (i = 0; i < n; i++) 
     { 
         if (queue[i] >= head) 
-        {             start = i;             break; 
+        {             start = i;            
+        break; 
         } 
     } 
  
-    // if direction is right     if (direction == 1) 
+    // if direction is right     
+    if (direction == 1) 
     { 
         // add right end boundary 
         sequence[0] = n - 1; 
@@ -43,27 +60,36 @@ int main()
         { 
             sequence[i] = queue[j]; 
         } 
-        // add left end boundary         sequence[i] = 0; 
+        // add left end boundary       
+        sequence[i] = 0; 
         for (j = start - 1; j >= 0; i++, j--) 
         { 
             sequence[i] = queue[j]; 
         } 
     } 
-    // if direction is left     else 
+    // if direction is left  
+    else 
     { 
-        // add left end boundary         sequence[0] = 0;         for (i = 1, j = start - 1; j >= 0; i++, j--) 
+        // add left end boundary         
+        sequence[0] = 0;      
+        for (i = 1, j = start - 1; j >= 0; i++, j--) 
         { 
             sequence[i] = queue[j]; 
         } 
-        // add right end boundary         sequence[i] = n - 1;         for (j = start; j < n; i++, j++) 
+        // add right end boundary        
+        sequence[i] = n - 1;     
+        for (j = start; j < n; i++, j++) 
         { 
             sequence[i] = queue[j]; 
         } 
     } 
  
-    // print the sequence and calculate the total head movements     printf("Sequence: ");     for (i = 0; i <= n; i++) 
+    // print the sequence and calculate the total head movements     
+    printf("Sequence: ");    
+    for (i = 0; i <= n; i++) 
     { 
-        printf("%d ", sequence[i]);         if (i > 0) 
+        printf("%d ", sequence[i]);       
+        if (i > 0) 
         { 
             total_movement += abs(sequence[i] - sequence[i - 1]); 
         } 
@@ -77,10 +103,13 @@ int main()
 
 
 
-Q2. Write a program to simulate Contiguous file allocation method. Assume disk with nnumber of blocks. Give value of n as input. Randomly mark some block as allocated andaccordingly maintain the list of free blocks	Write menu driver program with menu options as mentioned above and implement each option.
+Q2. Write a program to simulate Contiguous file allocation method. Assume disk with nnumber of blocks.
+Give value of n as input. Randomly mark some block as allocated andaccordingly maintain the list of free blocks.
+Write menu driver program with menu options as mentioned above and implement each option.
 *Show Bit Vector *Create New File *Show Directory *Exit
 #include<stdio.h>  
-#include<string.h>  #include<stdlib.h>  
+#include<string.h>  
+#include<stdlib.h>  
 struct freelist  
 {  int start;  int size;  struct freelist *next;  
 };  
@@ -91,47 +120,74 @@ int fstart;
 int fsize;  
 };  
 struct freelist *head=NULL,*new=NULL,*temp,*prev,*temp1;  
-struct usedlist dir_ent[10];  int dir_index=0;  
+struct usedlist dir_ent[10];
+int dir_index=0;  
 main()  
 {  
 int ch,i;  
-char filename[10];  create();  do 
+char filename[10]; 
+create(); 
+do 
 {  
-printf("\n*****menu*******\n");  printf("1.Create file\n");  
+printf("\n*****menu*******\n");
+printf("1.Create file\n");  
 printf("2. Show Free and Used Block list\n");  
-printf("3. exit\n");  printf("Enter your choice: ");  scanf("%d",&ch);  switch(ch)  
+printf("3. exit\n");
+printf("Enter your choice: ");
+scanf("%d",&ch);  switch(ch)  
 {  
-case 1: allocate();  break;  
-case 2: printf("\nThe free list is");  printf("\nStartBlock\tSize\n");  
+case 1: allocate();  
+break;  
+case 2: printf("\nThe free list is"); 
+printf("\nStartBlock\tSize\n");  
 for (temp=head;temp!=NULL; temp=temp->next)  
 {  
-printf("%d",temp->start);  printf("\t%d\n",temp->size);  
+printf("%d",temp->start); 
+printf("\t%d\n",temp->size);  
 }  
-printf("The used list is");  printf("\nFilename\tStart\tLength\n");  
+printf("The used list is");  
+printf("\nFilename\tStart\tLength\n");  
 for(i=0;i<dir_index;i++)  
 {  
 printf("%s\t%d\t\t%d\n",dir_ent[i].fname,dir_ent[i].fstart,dir_ent[i].fsize);  
 }  
-break;  case 3: exit(0);  break; 
+break; 
+case 3: exit(0);  
+break; 
 }  
 }while (ch!=3);  
 }  
 create()  
 {  
-int no_of_blocks;  printf("Enter number of blocks\n");  scanf("%d",&no_of_blocks);  
+int no_of_blocks;  printf("Enter number of blocks\n");  
+scanf("%d",&no_of_blocks);  
 new = (struct freelist*)malloc(sizeof(struct freelist));  
-head=new;  new->start=0;  new->size=no_of_blocks;  new->next=NULL;  
+head=new;  
+new->start=0; 
+new->size=no_of_blocks;  
+new->next=NULL;  
 }  
 allocate()  
 {  
-int s, allocated=0;  char filename[10];  printf("enter file name \n");  scanf("%s",filename);  
+int s, allocated=0;  
+char filename[10];  
+printf("enter file name \n"); 
+scanf("%s",filename);  
 printf("enter size of a file in blocks\n");  
 scanf("%d",&s);  
 for(temp=head;temp!=NULL;)  
 {  
-if(temp->size < s)  temp=temp->next;  else 
+if(temp->size < s)  temp=temp->next; 
+else 
 { 
-//temp->size-=s;  strcpy(dir_ent[dir_index].fname,filename);  dir_ent[dir_index].fstart=temp->start;  temp->start+=s;  dir_ent[dir_index].fsize=s;  dir_index++;  allocated=1;  break;  
+//temp->size-=s;  
+strcpy(dir_ent[dir_index].fname,filename);
+dir_ent[dir_index].fstart=temp->start;  
+temp->start+=s;  
+dir_ent[dir_index].fsize=s; 
+dir_index++; 
+allocated=1; 
+break;  
 }  
 if (temp==NULL && allocated==0)  
 printf("Disk space not available\n");  
