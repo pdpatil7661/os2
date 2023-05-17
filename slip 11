@@ -116,7 +116,7 @@ DisplayData();
 }
 
 
-
+Q.2 Write a simulation program for disk scheduling using C-LOOK algorithm. Accept total number of disk blocks, disk request string, and current head position from the user. Display the list of request in the order in which it is served. Also display the total number of head moments.
 
 #include<stdio.h>
 int ReqString[20],nor,nob,start,thm,min[10],max[10];
