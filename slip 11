@@ -115,6 +115,9 @@ CalcNeed();
 DisplayData();
 }
 
+
+
+
 #include<stdio.h>
 int ReqString[20],nor,nob,start,thm,min[10],max[10];
  
