@@ -1,0 +1,217 @@
+Q1.	Write a program to simulate Linked file allocation method. Assume disk with n number of blocks. Give value of n as input. Randomly mark some block as allocated andaccordingly maintain the list of free blocks Write menu driver program with menu options as mentioned below and implement each option.
+*Show Bit Vector	* Create New File	*Show Directory	* Exit	[15]
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+typedef struct File {
+    int startBlock;
+    int fileSize;
+    struct File* next;
+} File;
+
+int totalBlocks;
+bool* bitVector;
+File* directory;
+
+void initializeBitVector() {
+    bitVector = (bool*) malloc(totalBlocks * sizeof(bool));
+    for (int i = 0; i < totalBlocks; i++) {
+        bitVector[i] = false;
+    }
+}
+
+void showBitVector() {
+    printf("Bit Vector:\n");
+    for (int i = 0; i < totalBlocks; i++) {
+        printf("%c ", bitVector[i] ? '1' : '0');
+    }
+    printf("\n");
+}
+
+File* createFile(int startBlock, int fileSize) {
+    if (startBlock < 0 || startBlock >= totalBlocks || fileSize <= 0 || startBlock + fileSize > totalBlocks) {
+        printf("Invalid input\n");
+        return NULL;
+    }
+
+    File* newFile = (File*) malloc(sizeof(File));
+    newFile->startBlock = startBlock;
+    newFile->fileSize = fileSize;
+    newFile->next = NULL;
+
+    for (int i = startBlock; i < startBlock + fileSize; i++) {
+        if (bitVector[i] == true) {
+            printf("Error: Block %d is already allocated\n", i);
+            free(newFile);
+            return NULL;
+        }
+        bitVector[i] = true;
+    }
+
+    printf("File created successfully\n");
+    return newFile;
+}
+
+void showDirectory() {
+    if (directory == NULL) {
+        printf("Directory is empty\n");
+        return;
+    }
+
+    printf("Directory:\n");
+    File* current = directory;
+    while (current != NULL) {
+        printf("Start Block: %d, File Size: %d\n", current->startBlock, current->fileSize);
+        current = current->next;
+    }
+}
+
+void deleteFile(int startBlock) {
+    if (directory == NULL) {
+        printf("Directory is empty\n");
+        return;
+    }
+
+    File* current = directory;
+    File* prev = NULL;
+
+    while (current != NULL) {
+        if (current->startBlock == startBlock) {
+            for (int i = startBlock; i < startBlock + current->fileSize; i++) {
+                bitVector[i] = false;
+            }
+
+            if (prev == NULL) {
+                directory = current->next;
+            } else {
+                prev->next = current->next;
+            }
+
+            free(current);
+            printf("File deleted successfully\n");
+            return;
+        }
+
+        prev = current;
+        current = current->next;
+    }
+
+    printf("File with start block %d not found\n", startBlock);
+}
+
+void freeMemory() {
+    free(bitVector);
+
+    File* current = directory;
+    while (current != NULL) {
+        File* temp = current;
+        current = current->next;
+        free(temp);
+    }
+}
+
+int main() {
+    printf("Enter the total number of blocks in the disk: ");
+    scanf("%d", &totalBlocks);
+    initializeBitVector();
+
+    int choice, startBlock, fileSize;
+Q2.	Write a C program to simulate Banker’s algorithm for the purpose of deadlockavoidance. The following snapshot of system, A, B, C and D are the resource type.
+Process	Allocation	Max	Available
+	A	B	C	A	B	C	A	B	C
+P0	0	1	0	0	0	0	0	0	0
+P1	2	0	0	2	0	2				
+P2	3	0	3	0	0	0				
+P3	2	1	1	1	0	0				
+P4	0	0	2	0	0	2				
+a.	Calculate and display the content of need matrix?
+b.	Is the system in safe state? If display the safe sequence
+
+#include <stdio.h>
+
+#define MAX_PROCESSES 5
+#define MAX_RESOURCES 3
+
+void calculateNeedMatrix(int allocation[MAX_PROCESSES][MAX_RESOURCES], int max[MAX_PROCESSES][MAX_RESOURCES], int need[MAX_PROCESSES][MAX_RESOURCES]) {
+    for (int i = 0; i < MAX_PROCESSES; i++) {
+        for (int j = 0; j < MAX_RESOURCES; j++) {
+            need[i][j] = max[i][j] - allocation[i][j];
+        }
+    }
+}
+
+void displayNeedMatrix(int need[MAX_PROCESSES][MAX_RESOURCES]) {
+    printf("Need Matrix:\n");
+    printf("\tA\tB\tC\n");
+    for (int i = 0; i < MAX_PROCESSES; i++) {
+        printf("P%d\t", i);
+        for (int j = 0; j < MAX_RESOURCES; j++) {
+            printf("%d\t", need[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int allocation[MAX_PROCESSES][MAX_RESOURCES] = {
+        {0, 1, 0},
+        {2, 0, 0},
+        {3, 0, 3},
+        {2, 1, 1},
+        {0, 0, 2}
+    };
+
+    int max[MAX_PROCESSES][MAX_RESOURCES] = {
+        {0, 0, 0},
+        {2, 0, 2},
+        {3, 0, 0},
+        {1, 0, 0},
+        {0, 0, 2}
+    };
+
+    int need[MAX_PROCESSES][MAX_RESOURCES];
+
+    calculateNeedMatrix(allocation, max, need);
+    displayNeedMatrix(need);
+
+    return 0;
+}
+
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_PROCESSES 5
+#define MAX_RESOURCES 3
+
+bool isSafeState(int available[MAX_RESOURCES], int allocation[MAX_PROCESSES][MAX_RESOURCES], int need[MAX_PROCESSES][MAX_RESOURCES]) {
+    bool finished[MAX_PROCESSES] = { false };
+    int work[MAX_RESOURCES];
+    int safeSequence[MAX_PROCESSES];
+    int safeSeqIndex = 0;
+
+    // Initialize work array with available resources
+    for (int i = 0; i < MAX_RESOURCES; i++) {
+        work[i] = available[i];
+    }
+
+    // Find an unfinished process whose needs can be met with the available resources
+    for (int count = 0; count < MAX_PROCESSES; count++) {
+        bool found = false;
+        for (int i = 0; i < MAX_PROCESSES; i++) {
+            if (!finished[i]) {
+                bool canExecute = true;
+                for (int j = 0; j < MAX_RESOURCES; j++) {
+                    if (need[i][j] > work[j]) {
+                        canExecute = false;
+                        break;
+                    }
+                }
+                if (canExecute) {
+                    // Add the process to the safe sequence
+                    safeSequence[safeSeqIndex++] = i;
+                    finished[i] = true;
+                    found = true;
+                 // Release allocated resources
+                    for (int j = 0; j < MAX_RESOURCES; j++)
