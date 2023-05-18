@@ -1,0 +1,141 @@
+1.	Write a C program to simulate Banker’s algorithm for the purpose of deadlock avoidance. Consider the following snapshot of system, A, B, C and D is the resource type.
+Process	Allocation	Max	Available
+	A	B	C	D	A	B	C	D	A	B	C	D
+P0	0	0	1	2	0	0	1	2	1	5	2	0
+P1	1	0	0	0	1	7	5	0					
+P2	1	3	5	4	2	3	5	6					
+P3	0	6	3	2	0	6	5	2					
+P4	0	0	1	4	0	6	5	6					
+a.	Calculate and display the content of need matrix?
+b.	Is the system in safe state? If display the safe sequence.	[15]
+#include <stdio.h>
+#define MAX_PROCESSES 5
+#define MAX_RESOURCES 4
+
+void calculateNeedMatrix(int allocation[MAX_PROCESSES][MAX_RESOURCES], int max[MAX_PROCESSES][MAX_RESOURCES], int need[MAX_PROCESSES][MAX_RESOURCES]) {
+    for (int i = 0; i < MAX_PROCESSES; i++) {
+        for (int j = 0; j < MAX_RESOURCES; j++) {
+            need[i][j] = max[i][j] - allocation[i][j];
+        }
+    }
+}
+
+void displayNeedMatrix(int need[MAX_PROCESSES][MAX_RESOURCES]) {
+    printf("Need Matrix:\n");
+    printf("\tA\tB\tC\tD\n");
+    for (int i = 0; i < MAX_PROCESSES; i++) {
+        printf("P%d\t", i);
+        for (int j = 0; j < MAX_RESOURCES; j++) {
+            printf("%d\t", need[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int allocation[MAX_PROCESSES][MAX_RESOURCES] = {
+        {0, 0, 1, 2},
+        {1, 0, 0, 0},
+        {1, 3, 5, 4},
+        {0, 6, 3, 2},
+        {0, 0, 1, 4}
+    };
+
+    int max[MAX_PROCESSES][MAX_RESOURCES] = {
+        {0, 0, 1, 2},
+        {1, 7, 5, 0},
+        {2, 3, 5, 6},
+        {0, 6, 5, 2},
+        {0, 6, 5, 6}
+    };
+
+    int need[MAX_PROCESSES][MAX_RESOURCES];
+
+    calculateNeedMatrix(allocation, max, need);
+    displayNeedMatrix(need);
+
+    return 0;
+}
+
+
+ #include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_PROCESSES 5
+#define MAX_RESOURCES 4
+
+bool isSafeState(int available[MAX_RESOURCES], int allocation[MAX_PROCESSES][MAX_RESOURCES], int need[MAX_PROCESSES][MAX_RESOURCES]) {
+    bool finished[MAX_PROCESSES] = { false };
+    int work[MAX_RESOURCES];
+    int safeSequence[MAX_PROCESSES];
+    int safeSeqIndex = 0;
+
+    // Initialize work array with available resources
+    for (int i = 0; i < MAX_RESOURCES; i++) {
+        work[i] = available[i];
+    }
+
+    // Find an unfinished process whose needs can be met with the available resources
+    for (int count = 0; count < MAX_PROCESSES; count++) {
+        bool found = false;
+        for (int i = 0; i < MAX_PROCESSES; i++) {
+            if (!finished[i]) {
+                bool canExecute = true;
+                for (int j = 0; j < MAX_RESOURCES; j++) {
+                    if (need[i][j] > work[j]) {
+                        canExecute = false;
+                        break;
+                    }
+                }
+                if (canExecute) {
+                    // Add the process to the safe sequence
+                    safeSequence[safeSeqIndex++] = i;
+                    finished
+2.	Write a simulation program for disk scheduling using FCFS algorithm. Accept total number of disk blocks, disk request string, and current head position from the user.Display the list of request in the order in which it is served. Also display the total number of head moments.
+56, 59, 40, 19, 91, 161, 151, 39, 185
+Start Head Position: 48
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+void fcfs(int diskQueue[], int diskQueueSize, int startHeadPos) {
+    int headMovements = 0;
+
+    printf("Order of disk requests:\n");
+    printf("%d -> ", startHeadPos);
+
+    // Calculate head movements
+    for (int i = 0; i < diskQueueSize; i++) {
+        headMovements += abs(diskQueue[i] - startHeadPos);
+        startHeadPos = diskQueue[i];
+        printf("%d -> ", startHeadPos);
+    }
+
+    printf("End\n");
+    printf("Total head movements: %d\n", headMovements);
+}
+
+int main() {
+    int totalBlocks, startHeadPos;
+    printf("Enter the total number of disk blocks: ");
+    scanf("%d", &totalBlocks);
+
+    int diskQueueSize;
+    printf("Enter the size of the disk request queue: ");
+    scanf("%d", &diskQueueSize);
+
+    int* diskQueue = (int*)malloc(diskQueueSize * sizeof(int));
+    printf("Enter the disk request queue:\n");
+    for (int i = 0; i < diskQueueSize; i++) {
+        scanf("%d", &diskQueue[i]);
+    }
+
+    printf("Enter the start head position: ");
+    scanf("%d", &startHeadPos);
+
+    fcfs(diskQueue, diskQueueSize, startHeadPos);
+
+    free(diskQueue);
+
+    return 0;
+}
